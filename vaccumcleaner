@@ -1,0 +1,29 @@
+class VacuumCleaner:
+    def _init_(self, grid_size):
+        self.grid_size = grid_size
+        self.grid = [['dirty' for _ in range(grid_size)] for _ in range(grid_size)]
+        self.position = (0, 0)
+    def print_grid(self):
+        for row in self.grid:
+            print(row)
+    def clean(self):
+        while 'dirty' in [cell for row in self.grid for cell in row]:
+            self.print_grid()
+            print(f"Current position: {self.position}")
+            if self.grid[self.position[0]][self.position[1]] == 'dirty':
+                print("Cleaning...")
+                self.grid[self.position[0]][self.position[1]] = 'clean'
+            else:
+                print("Already clean.")          
+            self.move()
+    def move(self):
+        if self.position[1] < self.grid_size - 1:
+            self.position = (self.position[0], self.position[1] + 1)
+        elif self.position[0] < self.grid_size - 1:
+            self.position = (self.position[0] + 1, 0)
+        else:
+            print("Cleaning complete.")
+# Example usage
+grid_size = 2
+vacuum = VacuumCleaner(grid_size)
+vacuum.clean()
